@@ -45,11 +45,11 @@ jobs:
         with:
           path: public-github/
 
-      # 🎯 为 Cloudflare Pages 构建
+      # 🎯 为 Cloudflare Pages 构建 (修复：使用正确的自定义域名)
       - name: Build site for Cloudflare Pages
         run: |
           hugo --minify \
-            --baseURL "https://devproportal-com.pages.dev/" \
+            --baseURL "https://backup.devproportal.com/" \
             --destination "public-cloudflare"
         env:
           HUGO_ENVIRONMENT: production

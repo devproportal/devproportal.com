@@ -1,7 +1,11 @@
-baseURL: 'https://devproportal.com'
+baseURL: 'https://backup.devproportal.com'
 languageCode: 'en-us'
 title: 'DevProPortal'
 theme: 'PaperMod'
+
+# 🎯 修复路径问题的关键配置
+canonifyURLs: true
+relativeURLs: false
 
 # 基础设置
 enableRobotsTXT: true
@@ -27,6 +31,14 @@ params:
   description: "Enterprise Development Resources & Best Practices"
   keywords: [Java, Spring Boot, Microservices, Enterprise, Architecture, DevOps]
   author: "DevProPortal Team"
+  
+  # 🎯 修复 Mixed Content 问题
+  assets:
+    disableFingerprinting: false
+    favicon: "/favicon.ico"
+    favicon16x16: "/favicon-16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+    apple_touch_icon: "/apple-touch-icon.png"
   
   # 主页设置
   homeInfoParams:
@@ -116,7 +128,7 @@ markup:
     lineNos: true
     style: github
 
-# 修复：使用新的隐私配置语法
+# 🎯 修复：确保所有外部资源使用HTTPS
 privacy:
   vimeo:
     disabled: false
