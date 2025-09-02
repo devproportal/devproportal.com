@@ -1,0 +1,41 @@
+name: Content Validation
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.128.0"
+          extended: true
+
+      - name: Validate Hugo build
+        run: |
+          hugo --gc --minify --buildDrafts
+          echo "✅ Hugo build successful"
+
+      - name: Check for broken internal links
+        run: |
+          hugo server --port 1313 --bind 0.0.0.0 &
+          sleep 5
+          
+          # Install and run link checker
+          npm install -g broken-link-checker
+          blc http://localhost:1313 --recursive --ordered --exclude-external || echo "⚠️ Some links may be broken"
+          
+          # Kill Hugo server
+          pkill hugo
+
+      - name: Validate frontmatter
+        run: |
+          echo "Checking for required frontmatter fields..."
+          find content/posts -name "*.md" -exec grep -L "title:" {} \; | if read line; then echo "❌ Missing title in: $line" && exit 1; else echo "✅ All posts have titles"; fi
+          find content/posts -name "*.md" -exec grep -L "date:" {} \; | if read line; then echo "❌ Missing date in: $line" && exit 1; else echo "✅ All posts have dates"; fi

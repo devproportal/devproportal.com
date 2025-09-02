@@ -1,0 +1,138 @@
+baseURL: 'https://devproportal.com'
+languageCode: 'en-us'
+title: 'DevProPortal'
+theme: 'PaperMod'
+
+# 基础设置
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
+
+# 修复：使用新的分页配置
+pagination:
+  pagerSize: 10
+
+# 最小化设置
+minify:
+  disableXML: true
+  minifyOutput: true
+
+# 参数配置
+params:
+  env: production
+  title: "DevProPortal"
+  description: "Enterprise Development Resources & Best Practices"
+  keywords: [Java, Spring Boot, Microservices, Enterprise, Architecture, DevOps]
+  author: "DevProPortal Team"
+  
+  # 主页设置
+  homeInfoParams:
+    Title: "Welcome to DevProPortal 👋"
+    Content: "Your ultimate resource for enterprise development best practices, covering Java, Spring Boot, microservices, system design, and more."
+
+  # 社交链接
+  socialIcons:
+    - name: github
+      url: "https://github.com/DevProPortal"
+    - name: twitter
+      url: "https://twitter.com/devproportal"
+    - name: linkedin
+      url: "https://linkedin.com/company/devproportal"
+
+  # 搜索功能
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+
+  # 显示设置
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+
+# 菜单配置
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 20
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 30
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 40
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 50
+
+# 输出格式
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# 分类法设置
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
+# Markup 设置
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: github
+
+# 修复：使用新的隐私配置语法
+privacy:
+  vimeo:
+    disabled: false
+    simple: true
+  x:  # 修复：twitter 改为 x
+    disabled: false
+    enableDNT: true
+    simple: true
+  instagram:
+    disabled: false
+    simple: true
+  youtube:
+    disabled: false
+    privacyEnhanced: true
+
+# 服务设置
+services:
+  googleAnalytics:
+    ID: "" # 稍后添加

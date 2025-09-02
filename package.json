@@ -1,0 +1,18 @@
+{
+  "name": "devproportal.com",
+  "version": "1.0.0",
+  "description": "DevProPortal website source code",
+  "scripts": {
+    "dev": "hugo server -D --navigateToChanged",
+    "build": "hugo --gc --minify",
+    "preview": "hugo server --environment production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevProPortal/devproportal.com.git"
+  },
+  "keywords": ["hugo", "blog", "enterprise", "java", "microservices"],
+  "author": "DevProPortal Team",
+  "license": "MIT",
+  "devDependencies": {}
+}
