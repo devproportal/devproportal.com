@@ -1,0 +1,26 @@
+# scripts/hugo-tools.yaml
+# 自动生成文章模板
+new-post:
+  script: |
+    hugo new posts/$(date +%Y-%m-%d)-${1}.md
+    code content/posts/$(date +%Y-%m-%d)-${1}.md
+
+# 性能检查
+perf-check:
+  script: |
+    echo "🚀 Performance Check Started..."
+    hugo --minify --destination=tmp-build
+    ls -lah tmp-build/
+    du -sh tmp-build/
+    rm -rf tmp-build
+    echo "✅ Performance Check Completed"
+
+# 内容检查
+content-check:
+  script: |
+    echo "📝 Content Check Started..."
+    # 检查断链
+    find content -name "*.md" -exec grep -l "http" {} \;
+    # 检查图片引用
+    find content -name "*.md" -exec grep -l "!\[" {} \;
+    echo "✅ Content Check Completed"

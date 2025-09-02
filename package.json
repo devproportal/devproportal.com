@@ -3,16 +3,69 @@
   "version": "1.0.0",
   "description": "DevProPortal website source code",
   "scripts": {
-    "dev": "hugo server -D --navigateToChanged",
-    "build": "hugo --gc --minify",
-    "preview": "hugo server --environment production"
+    "dev": "hugo server --buildDrafts --buildFuture --disableFastRender --port 1313",
+    "build": "hugo --minify",
+    "build:check": "npm run build && npm run size-check",
+    
+    "test": "npm run test:build && npm run test:performance",
+    "test:build": "hugo --minify && echo '✅ Build test passed'",
+    "test:performance": "npm run lighthouse && npm run size-check",
+    
+    "lighthouse": "lighthouse http://localhost:1313 --output=html --output-path=reports/lighthouse.html --chrome-flags='--headless --no-sandbox'",
+    "lighthouse:mobile": "lighthouse http://localhost:1313 --preset=mobile --output=html --output-path=reports/mobile.html",
+    
+    "size-check": "node scripts/size-check.js",
+    "size-quick": "scripts/quick-size.sh",
+    
+    "lhci:autorun": "lhci autorun",
+    "test:html": "htmlhint public/**/*.html",
+    "test:links": "blc http://localhost:1313 -ro --filter-level 3",
+    
+    "clean": "rimraf public reports"
   },
+  "bundlesize": [
+    {
+      "path": "public/css/*.css",
+      "maxSize": "50kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "public/js/*.js",
+      "maxSize": "100kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "public/images/**/*.{jpg,jpeg,png,webp}",
+      "maxSize": "500kb"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/DevProPortal/devproportal.com.git"
   },
-  "keywords": ["hugo", "blog", "enterprise", "java", "microservices"],
+  "keywords": [
+    "hugo",
+    "blog",
+    "enterprise",
+    "java",
+    "microservices"
+  ],
   "author": "DevProPortal Team",
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "@lhci/cli": "^0.15.1",
+    "@size-limit/file": "^11.2.0",
+    "broken-link-checker": "^0.7.8",
+    "htmlhint": "^1.6.3",
+    "imagemin": "^9.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-webp": "^8.0.0",
+    "lighthouse": "^12.8.2",
+    "responsive-loader": "^3.1.2",
+    "sharp": "^0.34.3",
+    "sitemap-generator-cli": "^7.5.0",
+    "size-limit": "^11.2.0",
+    "web-vitals": "^5.1.0"
+  }
 }
