@@ -33,4 +33,4 @@ We are dedicated to empowering enterprise developers with practical guides, real
 
 ---
 
-*Building better software, one best practice at a time.*
+*Building better software, one best practice at a time!*
