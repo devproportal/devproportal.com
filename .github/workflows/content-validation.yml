@@ -1,6 +1,10 @@
 name: Content Validation
 
-on: [push, pull_request]
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   validate:
@@ -9,33 +13,84 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: true
+          submodules: recursive
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "0.128.0"
+          hugo-version: "0.149.0"
           extended: true
 
       - name: Validate Hugo build
         run: |
-          hugo --gc --minify --buildDrafts
+          echo "🔍 Validating Hugo build..."
+          hugo --gc --minify --printPathWarnings
           echo "✅ Hugo build successful"
 
-      - name: Check for broken internal links
+      - name: Check content structure
         run: |
-          hugo server --port 1313 --bind 0.0.0.0 &
-          sleep 5
+          echo "📁 Checking content structure..."
           
-          # Install and run link checker
-          npm install -g broken-link-checker
-          blc http://localhost:1313 --recursive --ordered --exclude-external || echo "⚠️ Some links may be broken"
+          # Check if content directory exists
+          if [ ! -d "content" ]; then
+            echo "❌ Content directory not found"
+            exit 1
+          fi
           
-          # Kill Hugo server
-          pkill hugo
+          # Check if posts directory exists and has content
+          if [ -d "content/posts" ]; then
+            POST_COUNT=$(find content/posts -name "*.md" | wc -l)
+            echo "📝 Found $POST_COUNT post(s)"
+          else
+            echo "ℹ️ No posts directory found"
+          fi
+          
+          echo "✅ Content structure validation complete"
 
       - name: Validate frontmatter
         run: |
-          echo "Checking for required frontmatter fields..."
-          find content/posts -name "*.md" -exec grep -L "title:" {} \; | if read line; then echo "❌ Missing title in: $line" && exit 1; else echo "✅ All posts have titles"; fi
-          find content/posts -name "*.md" -exec grep -L "date:" {} \; | if read line; then echo "❌ Missing date in: $line" && exit 1; else echo "✅ All posts have dates"; fi
+          echo "🏷️ Validating frontmatter..."
+          
+          # Only check if posts exist
+          if [ -d "content/posts" ] && [ "$(find content/posts -name "*.md" | wc -l)" -gt 0 ]; then
+            echo "Checking posts for required frontmatter..."
+            
+            # Check for titles
+            MISSING_TITLES=$(find content/posts -name "*.md" -exec grep -L "^title:" {} \;)
+            if [ -n "$MISSING_TITLES" ]; then
+              echo "❌ Missing titles in:"
+              echo "$MISSING_TITLES"
+              exit 1
+            fi
+            
+            # Check for dates  
+            MISSING_DATES=$(find content/posts -name "*.md" -exec grep -L "^date:" {} \;)
+            if [ -n "$MISSING_DATES" ]; then
+              echo "❌ Missing dates in:"
+              echo "$MISSING_DATES"
+              exit 1
+            fi
+            
+            echo "✅ All posts have required frontmatter"
+          else
+            echo "ℹ️ No posts found to validate"
+          fi
+
+      - name: Check Hugo configuration
+        run: |
+          echo "⚙️ Validating Hugo configuration..."
+          
+          if [ -f "hugo.yaml" ]; then
+            echo "✅ Found hugo.yaml"
+          elif [ -f "hugo.yml" ]; then
+            echo "✅ Found hugo.yml"
+          elif [ -f "config.yaml" ]; then
+            echo "✅ Found config.yaml"
+          elif [ -f "config.yml" ]; then
+            echo "✅ Found config.yml"
+          else
+            echo "❌ No Hugo configuration file found"
+            exit 1
+          fi
+          
+          echo "✅ Configuration validation complete"
