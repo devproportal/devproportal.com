@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy to Primary and Backup Sites
 
 on:
   push:
@@ -31,50 +31,61 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 🎯 为 GitHub Pages 构建
-      - name: Build site for GitHub Pages
+      # 🎯 为 Cloudflare Pages 构建（主站点）
+      - name: Build site for Cloudflare Pages (Primary)
         run: |
+          echo "🚀 Building PRIMARY site for Cloudflare Pages..."
+          echo "Target domain: https://devproportal.com/"
           hugo --minify \
-            --baseURL "https://devproportal.github.io/devproportal.com/" \
-            --destination "public-github"
+            --baseURL "https://devproportal.com/" \
+            --destination "public-cloudflare" \
+            --verbose
         env:
           HUGO_ENVIRONMENT: production
 
-      - name: Upload GitHub Pages artifact
+      # 🛡️ 为 GitHub Pages 构建（备份站点）
+      - name: Build site for GitHub Pages (Backup)
+        run: |
+          echo "🛡️ Building BACKUP site for GitHub Pages..."
+          echo "Target domain: https://backup.devproportal.com/"
+          hugo --minify \
+            --baseURL "https://backup.devproportal.com/" \
+            --destination "public-github" \
+            --verbose
+        env:
+          HUGO_ENVIRONMENT: production
+
+      # 🔍 验证构建结果
+      - name: Verify builds
+        run: |
+          echo "🔍 Verifying PRIMARY site (Cloudflare)..."
+          if grep -r "devproportal.com" public-cloudflare/ | head -3; then
+            echo "✅ PRIMARY: devproportal.com found in generated files"
+          else
+            echo "❌ PRIMARY: devproportal.com NOT found!"
+          fi
+          
+          echo "🔍 Verifying BACKUP site (GitHub)..."
+          if grep -r "backup.devproportal.com" public-github/ | head -3; then
+            echo "✅ BACKUP: backup.devproportal.com found in generated files"
+          else
+            echo "❌ BACKUP: backup.devproportal.com NOT found!"
+          fi
+
+      # 📦 上传构建产物
+      - name: Upload GitHub Pages artifact (Backup)
         uses: actions/upload-pages-artifact@v3
         with:
           path: public-github/
 
-      # 🎯 为 Cloudflare Pages 构建 (修复：使用正确的自定义域名)
-      - name: Build site for Cloudflare Pages
-        run: |
-          hugo --minify \
-            --baseURL "https://backup.devproportal.com/" \
-            --destination "public-cloudflare"
-        env:
-          HUGO_ENVIRONMENT: production
-
-      - name: Upload Cloudflare artifact
+      - name: Upload Cloudflare artifact (Primary)
         uses: actions/upload-artifact@v4
         with:
           name: cloudflare-site
           path: public-cloudflare/
 
-  deploy-github-pages:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-  deploy-cloudflare-pages:
+  # 🚀 部署主站点（Cloudflare Pages）
+  deploy-primary-cloudflare:
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -88,7 +99,7 @@ jobs:
           name: cloudflare-site
           path: public/
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare Pages (Primary Site)
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -96,3 +107,18 @@ jobs:
           projectName: devproportal-com
           directory: public/
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  # 🛡️ 部署备份站点（GitHub Pages）
+  deploy-backup-github:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages (Backup Site)
+        id: deployment
+        uses: actions/deploy-pages@v4

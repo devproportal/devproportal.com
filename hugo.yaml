@@ -1,4 +1,4 @@
-baseURL: 'https://backup.devproportal.com'
+baseURL: 'https://devproportal.com'  # 🎯 主域名
 languageCode: 'en-us'
 title: 'DevProPortal'
 theme: 'PaperMod'
