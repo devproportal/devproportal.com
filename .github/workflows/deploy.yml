@@ -31,27 +31,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 🎯 为 Cloudflare Pages 构建（主站点）
+      # 🎯 为 Cloudflare Pages 构建（主站点）- 移除 --verbose
       - name: Build site for Cloudflare Pages (Primary)
         run: |
           echo "🚀 Building PRIMARY site for Cloudflare Pages..."
           echo "Target domain: https://devproportal.com/"
           hugo --minify \
             --baseURL "https://devproportal.com/" \
-            --destination "public-cloudflare" \
-            --verbose
+            --destination "public-cloudflare"
         env:
           HUGO_ENVIRONMENT: production
 
-      # 🛡️ 为 GitHub Pages 构建（备份站点）
+      # 🛡️ 为 GitHub Pages 构建（备份站点）- 移除 --verbose
       - name: Build site for GitHub Pages (Backup)
         run: |
           echo "🛡️ Building BACKUP site for GitHub Pages..."
           echo "Target domain: https://backup.devproportal.com/"
           hugo --minify \
             --baseURL "https://backup.devproportal.com/" \
-            --destination "public-github" \
-            --verbose
+            --destination "public-github"
         env:
           HUGO_ENVIRONMENT: production
 
