@@ -5,7 +5,7 @@ Welcome to the DevProPortal website repository. This is the source code for our 
 ## 🚀 Tech Stack
 
 - **Static Site Generator**: [Hugo](https://gohugo.io/)
-- **Theme**: Custom enterprise-focused design
+- **Theme**: [PaperMod](https://github.com/adityatelange/hugo-PaperMod)
 - **Languages**: Go templates, HTML, CSS, JavaScript
 - **Deployment**: GitHub Pages with GitHub Actions
 - **Performance Testing**: Lighthouse CI, Size Limit
@@ -13,7 +13,7 @@ Welcome to the DevProPortal website repository. This is the source code for our 
 ## 🛠 Development Setup
 
 1. Install Hugo (extended version recommended):
-   \```bash
+   ```bash
    # macOS
    brew install hugo
    
@@ -21,23 +21,23 @@ Welcome to the DevProPortal website repository. This is the source code for our 
    choco install hugo-extended
    
    # Other systems: https://gohugo.io/installation/
-   \```
+   ```
 
 2. Clone the repository:
-   \```bash
+   ```bash
    git clone https://github.com/DevProPortal/devproportal.com.git
    cd devproportal.com
-   \```
+   ```
 
 3. Install dependencies:
-   \```bash
+   ```bash
    npm install
-   \```
+   ```
 
 4. Start the development server:
-   \```bash
+   ```bash
    npm run dev
-   \```
+   ```
 
 5. Open your browser to http://localhost:1313
 
@@ -63,9 +63,9 @@ We have several automated tests to ensure quality:
 The site is automatically deployed via GitHub Actions when changes are pushed to the main branch. The workflow is defined in `.github/workflows/deploy.yml`.
 
 Manual deployment can be done with:
-\```bash
+```
 npm run build
-\```
+```
 
 This generates the static site in the `public/` directory.
 
