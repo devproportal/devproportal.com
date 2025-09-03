@@ -1,6 +1,6 @@
 # DevProPortal.com
 
-Welcome to the DevProPortal website repository. This is the source code for our technical blog focused on enterprise Java development, microservices, and modern software architecture.
+Welcome to the [DevProPortal.com](https://devproportal.com) website repository. This is the source code for our technical blog focused on enterprise Java development, microservices, and modern software architecture.
 
 ## 🚀 Tech Stack
 
