@@ -85,17 +85,21 @@ menu:
       name: Home
       url: /
       weight: 10
-    - identifier: posts
-      name: Posts
-      url: /posts/
+    - identifier: java
+      name: Java Enterprise
+      url: /java-enterprise/
+      weight: 15
+    - identifier: spring
+      name: Spring Ecosystem
+      url: /spring-ecosystem/
       weight: 20
-    - identifier: categories
-      name: Categories
-      url: /categories/
-      weight: 30
-    - identifier: tags
-      name: Tags
-      url: /tags/
+    - identifier: microservices
+      name: Microservices
+      url: /microservices-architecture/
+      weight: 25
+    - identifier: aws-cloud
+      name: AWS Cloud
+      url: /aws-cloud-native/
       weight: 40
     - identifier: about
       name: About
