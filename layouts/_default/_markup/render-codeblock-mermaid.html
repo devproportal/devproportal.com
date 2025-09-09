@@ -1,4 +1,100 @@
-<pre class="mermaid">
-  {{- .Inner | safeHTML }}
-</pre>
-{{ .Page.Store.Set "hasMermaid" true }}
+<div class="mermaid-container">
+  <div class="mermaid">
+    {{ .Inner }}
+  </div>
+</div>
+
+{{ if not (.Page.Scratch.Get "mermaidLoaded") }}
+  {{ .Page.Scratch.Set "mermaidLoaded" true }}
+  <!-- mermaid 10: jsdelivr CDN -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script> -->
+  <!-- mermaid 10: unpkg CDN -->
+  <!-- <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script> -->
+  <!-- mermaid 11: jsdelivr CDN -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script> -->
+  <!-- mermaid 11: unpkg CDN -->
+  <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+  
+  <style>
+    .mermaid-container {
+      /* 允许超宽图表横向滚动，但限制最小宽度避免文字过小 */
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      padding-bottom: 0.5rem; /* 滚动条预留空间 */
+    }
+    
+    .mermaid {
+      /* 核心：最小宽度 600px（可根据内容调整），最大不超过文章宽度 */
+      min-width: 600px;
+      max-width: 100%;
+      /* 内边距避免内容贴边 */
+      padding: 1.5rem;
+      background-color: var(--code-bg);
+      border-radius: 4px;
+    }
+    
+    /* 图表内 SVG 自适应，保持比例 */
+    .mermaid svg {
+      width: 100% !important;
+      height: auto !important;
+    }
+    
+    /* 小屏幕适配：降低最小宽度，避免横向滚动过于频繁 */
+    @media (max-width: 768px) {
+      .mermaid {
+        min-width: 100%; /* 手机端优先占满屏幕 */
+        padding: 1rem;
+      }
+    }
+  </style>
+  
+  <script>
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    
+    const baseConfig = {
+      startOnLoad: true,
+      fontFamily: '"Inter", system-ui, sans-serif',
+      fontSize: 16, // 字体比默认稍大（默认14），缩放后仍清晰
+      // 关闭 Mermaid 内置宽度限制，交给 CSS 控制
+      flowchart: {
+        useMaxWidth: false,
+        curve: 'monotoneX'
+      },
+      sequence: {
+        useMaxWidth: false
+      },
+      graph: {
+        useMaxWidth: false
+      }
+    };
+    
+    const darkModeConfig = {
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#1e293b',
+        background: '#0f172a',
+        borderColor: '#334155',
+        primaryTextColor: '#e2e8f0',
+        secondaryTextColor: '#94a3b8',
+        lineColor: '#64748b',
+        nodeBorder: '#475569',
+        nodeTextColor: '#f1f5f9',
+        errorColor: '#f87171',
+        successColor: '#6ee7b7',
+      }
+    };
+    
+    const lightModeConfig = {
+      theme: 'default',
+      themeVariables: {
+        primaryColor: '#f1f5f9',
+        lineColor: '#64748b'
+      }
+    };
+    
+    mermaid.initialize({
+      ...baseConfig,
+      ...(isDarkMode ? darkModeConfig : lightModeConfig)
+    });
+  </script>
+{{ end }}

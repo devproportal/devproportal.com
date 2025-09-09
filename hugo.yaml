@@ -3,6 +3,7 @@ baseURL: 'https://devproportal.com'  # 🎯 网站主域名
 languageCode: 'en-us'  # 网站语言代码
 title: 'DevProPortal'  # 网站标题，显示在浏览器标签页
 theme: 'PaperMod'  # 使用的主题
+# theme: 'Congo' # 备用主题
 
 # 🎯 修复路径问题的关键配置
 canonifyURLs: true  # 将所有相对URL转换为规范URL
@@ -132,11 +133,11 @@ markup:
       unsafe: true  # 允许markdown中的原始HTML
   highlight:
     noClasses: false  # 使用CSS类进行语法高亮
-    anchorLineNos: true  # 为行号添加锚点
+    anchorLineNos: false  # 为行号添加锚点
     codeFences: true  # 启用```language代码块
     guessSyntax: true  # 尝试猜测未指定的语言
     lineNos: true  # 显示代码行号
-    style: github  # 使用GitHub风格的语法高亮
+    style: solarized-dark  # 使用GitHub风格的语法高亮
 
 # 🎯 服务设置
 privacy:
