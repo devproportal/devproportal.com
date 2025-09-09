@@ -10,7 +10,7 @@ Jeff Taakey:
 
 -->
 
-# 5 New Java 21 Features Every Developer Should Know
+# [Java] 5 New Java 21 Features Every Developer Should Know
 
 When **Java 21** was announced as the latest **Long Term Support(LTS)** release by Oracle official, I found myself genuinely excited about the language's direction for the first time in years. After spending considerable time with these new features in production environments, I want to share the **FIVE** key features that I believe will have the most significant impact on how we write Java code.
 
@@ -192,20 +192,18 @@ flowchart TD
     D --> I[PriorityQueue]
     D --> J[Deque]
 
-    %% New Interface：SequencedCollection
     A --> K{{SequencedCollection}}
 
-    %% SequencedCollection 的子接口和实现
     K --> B
     K --> J
     B --> L["ArrayList - implements SequencedCollection"]
     J --> M["LinkedList - implements SequencedCollection"]
 
-    style K fill:#ffcc00,stroke:#333,stroke-width:2px
-
 ```
 
-Blow is the Java Code.
+<!-- style K fill:#ffcc00,stroke:#333,stroke-width:2px -->
+
+Blow is the Java Code:
 
 ```java
 // Before: different methods for different collection types
