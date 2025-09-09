@@ -1,107 +1,113 @@
-baseURL: 'https://devproportal.com'  # 🎯 主域名
-languageCode: 'en-us'
-title: 'DevProPortal'
-theme: 'PaperMod'
+# 🎯 站点基础配置
+baseURL: 'https://devproportal.com'  # 🎯 网站主域名
+languageCode: 'en-us'  # 网站语言代码
+title: 'DevProPortal'  # 网站标题，显示在浏览器标签页
+theme: 'PaperMod'  # 使用的主题
 
 # 🎯 修复路径问题的关键配置
-canonifyURLs: true
-relativeURLs: false
+canonifyURLs: true  # 将所有相对URL转换为规范URL
+relativeURLs: false  # 使用绝对URL而不是相对URL
 
 # 基础设置
-enableRobotsTXT: true
-buildDrafts: false
-buildFuture: false
-buildExpired: false
-enableEmoji: true
-pygmentsUseClasses: true
+enableRobotsTXT: true  # 生成robots.txt文件供搜索引擎爬虫使用
+buildDrafts: false  # 不包含草稿内容
+buildFuture: false  # 不发布未来日期的内容
+buildExpired: false  # 不发布过期内容
+enableEmoji: true  # 启用markdown中的emoji支持
+pygmentsUseClasses: true  # 使用CSS类进行语法高亮而不是内联样式
 
 # 修复：使用新的分页配置
 pagination:
-  pagerSize: 10
+  pagerSize: 10  # 每页显示的文章数量
 
 # 最小化设置
 minify:
-  disableXML: true
-  minifyOutput: true
+  disableXML: true  # 不压缩XML文件
+  minifyOutput: true  # 压缩HTML、CSS和JS输出
 
 # 参数配置
 params:
-  env: production
-  title: "DevProPortal"
-  description: "Enterprise Development Resources & Best Practices"
-  keywords: [Java, Spring Boot, Microservices, Enterprise, Architecture, DevOps]
-  author: "DevProPortal Team"
+  env: production  # 环境设置 (production/development)
+  title: "DevProPortal"  # 网站标题，用于meta标签
+  description: "Enterprise Development Resources & Best Practices"  # 网站描述，用于SEO
+  keywords: [Java, Spring Boot, Microservices, Enterprise, Architecture, DevOps]  # SEO关键词
+  author: "DevProPortal Team"  # 网站作者信息
+
+  # 主题和外观设置
+  colorScheme: auto  # 自动检测用户偏好的颜色方案 (auto/light/dark)
+  defaultTheme: light  # 默认主题 (light/dark)
+  #disableThemeToggle: false  # 主题切换已启用 (注释掉表示不禁用)
   
-  # 🎯 修复 Mixed Content 问题
+  # 🎯 修复：Mixed Content 问题
   assets:
-    disableFingerprinting: false
-    favicon: "/favicon.ico"
-    favicon16x16: "/favicon-16x16.png"
-    favicon32x32: "/favicon-32x32.png"
-    apple_touch_icon: "/apple-touch-icon.png"
+    disableFingerprinting: false  # 启用资源指纹用于缓存清除
+    favicon: "/favicon.ico"  # 默认favicon
+    favicon16x16: "/favicon-16x16.png"  # 16x16 favicon
+    favicon32x32: "/favicon-32x32.png"  # 32x32 favicon
+    apple_touch_icon: "/apple-touch-icon.png"  # iOS主屏幕Apple touch icon
   
   # 主页设置
   homeInfoParams:
-    Title: "Welcome to DevProPortal 👋"
-    Content: "Your ultimate resource for enterprise development best practices, covering Java, Spring Boot, microservices, system design, and more."
+    Title: "Welcome to DevProPortal 👋"  # 主页欢迎标题
+    Content: "Your ultimate resource for enterprise development best practices, covering Java, Spring Boot, microservices, system design, and more."  # 主页描述
 
   # 社交链接
   socialIcons:
-    - name: github
+    - name: github  # GitHub主页链接
       url: "https://github.com/DevProPortal"
-    - name: twitter
+    - name: twitter  # Twitter主页链接
       url: "https://twitter.com/devproportal"
-    - name: linkedin
+    - name: linkedin  # LinkedIn公司页面
       url: "https://linkedin.com/company/devproportal"
 
   # 搜索功能
   fuseOpts:
-    isCaseSensitive: false
-    shouldSort: true
-    location: 0
-    distance: 1000
-    threshold: 0.4
+    isCaseSensitive: false  # 搜索不区分大小写
+    shouldSort: true  # 对搜索结果排序
+    location: 0  # 搜索相关性的位置加权
+    distance: 1000  # 搜索匹配的距离
+    threshold: 0.4  # 搜索结果的相似度阈值
 
   # 显示设置
-  ShowReadingTime: true
-  ShowShareButtons: true
-  ShowPostNavLinks: true
-  ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
-  ShowWordCount: true
-  ShowToc: true
-  disableSpecial1stPost: false
-  disableScrollToTop: false
-  comments: false
-  hidemeta: false
-  hideSummary: false
-  showtoc: false
-  tocopen: false
+  ShowReadingTime: true  # 显示文章预计阅读时间
+  ShowShareButtons: true  # 显示社交分享按钮
+  ShowPostNavLinks: true  # 显示上一篇/下一篇导航
+  ShowBreadCrumbs: true  # 显示面包屑导航
+  ShowCodeCopyButtons: true  # 在代码块上显示复制按钮
+  ShowWordCount: true  # 显示文章字数统计
+  ShowToc: true  # 显示目录
+  disableSpecial1stPost: false  # 不禁用第一篇文章的特殊样式
+  disableScrollToTop: false  # 显示返回顶部按钮
+  comments: false  # 禁用评论
+  hidemeta: false  # 显示文章元数据
+  hideSummary: false  # 不隐藏文章摘要
+  showtoc: false  # 默认不显示目录
+  tocopen: false  # 默认不展开目录
 
 # 菜单配置
 menu:
   main:
-    - identifier: home
+    - identifier: home  # 首页菜单项
       name: Home
       url: /
-      weight: 10
-    - identifier: java
+      weight: 10  # 菜单中的顺序 (权重越小位置越靠前)
+    - identifier: java  # Java企业版版块
       name: Java Enterprise
       url: /java-enterprise/
       weight: 15
-    - identifier: spring
+    - identifier: spring  # Spring生态系统版块
       name: Spring Ecosystem
       url: /spring-ecosystem/
       weight: 20
-    - identifier: microservices
+    - identifier: microservices  # 微服务架构版块
       name: Microservices
       url: /microservices-architecture/
       weight: 25
-    - identifier: aws-cloud
+    - identifier: aws-cloud  # AWS云原生版块
       name: AWS Cloud
       url: /aws-cloud-native/
       weight: 40
-    - identifier: about
+    - identifier: about  # 关于页面
       name: About
       url: /about/
       weight: 50
@@ -109,46 +115,46 @@ menu:
 # 输出格式
 outputs:
   home:
-    - HTML
-    - RSS
-    - JSON
+    - HTML  # 生成HTML输出
+    - RSS  # 生成RSS订阅
+    - JSON  # 生成JSON用于搜索功能
 
 # 分类法设置
 taxonomies:
-  category: categories
-  tag: tags
-  series: series
+  category: categories  # 分类分类法
+  tag: tags  # 标签分类法
+  series: series  # 系列分类法
 
 # Markup 设置
 markup:
   goldmark:
     renderer:
-      unsafe: true
+      unsafe: true  # 允许markdown中的原始HTML
   highlight:
-    noClasses: false
-    anchorLineNos: true
-    codeFences: true
-    guessSyntax: true
-    lineNos: true
-    style: github
+    noClasses: false  # 使用CSS类进行语法高亮
+    anchorLineNos: true  # 为行号添加锚点
+    codeFences: true  # 启用```language代码块
+    guessSyntax: true  # 尝试猜测未指定的语言
+    lineNos: true  # 显示代码行号
+    style: github  # 使用GitHub风格的语法高亮
 
-# 🎯 修复：确保所有外部资源使用HTTPS
+# 🎯 服务设置
 privacy:
   vimeo:
-    disabled: false
-    simple: true
-  x:  # 修复：twitter 改为 x
-    disabled: false
-    enableDNT: true
-    simple: true
+    disabled: false  # 启用Vimeo嵌入
+    simple: true  # 使用简单的Vimeo嵌入
+  x:  # Twitter (现为X) 嵌入设置
+    disabled: false  # 启用Twitter/X嵌入
+    enableDNT: true  # 为Twitter启用"请勿追踪"
+    simple: true  # 使用简单的Twitter嵌入
   instagram:
-    disabled: false
-    simple: true
+    disabled: false  # 启用Instagram嵌入
+    simple: true  # 使用简单的Instagram嵌入
   youtube:
-    disabled: false
-    privacyEnhanced: true
+    disabled: false  # 启用YouTube嵌入
+    privacyEnhanced: true  # 使用增强隐私的YouTube嵌入
 
-# 服务设置
+# 服务集成
 services:
   googleAnalytics:
-    ID: "" # 稍后添加
+    ID: "" # 稍后添加Google Analytics ID
