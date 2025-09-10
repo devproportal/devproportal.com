@@ -1,5 +1,5 @@
 ---
-title: "[AWS] - Mastering AWS Solution Architect Professional: A Strategic Guide to 150+ Services"
+title: "[AWS] Mastering AWS Solution Architect Professional: A Strategic Guide to 150+ Services"
 date: 2025-09-10
 last_modified_at: 2025-09-10
 author: Jeff Taakey
