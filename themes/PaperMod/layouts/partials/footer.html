@@ -62,36 +62,33 @@
 
 </script>
 
+{{- if (not site.Params.disableScrollToTop) }}
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+{{- end }}
+
 {{- if (not site.Params.disableThemeToggle) }}
 <script>
-    // 确保在DOM加载完成后初始化主题切换器
-    document.addEventListener('DOMContentLoaded', function() {
-        // 检查是否已经存在themeSwitcher实例
-        if (!window.themeSwitcher) {
-            // 动态导入模块化主题切换器
-            import('/js/modules/theme-switcher.js')
-              .then(module => {
-                window.themeSwitcher = new module.ThemeSwitcher();
-              })
-              .catch(error => {
-                console.error('Failed to load theme switcher module:', error);
-                
-                // 降级处理：使用内联主题切换逻辑
-                const themeToggle = document.getElementById("theme-toggle");
-                if (themeToggle) {
-                  themeToggle.addEventListener("click", () => {
-                    if (document.body.className.includes("dark")) {
-                      document.body.classList.remove('dark');
-                      localStorage.setItem("pref-theme", 'light');
-                    } else {
-                      document.body.classList.add('dark');
-                      localStorage.setItem("pref-theme", 'dark');
-                    }
-                  });
-                }
-              });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
         }
-    });
+    })
 
 </script>
 {{- end }}
