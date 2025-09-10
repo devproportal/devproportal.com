@@ -1,14 +1,25 @@
-<!--
-Title: 5 New Java 21 Features Every Developer Should Know
-
-Jeff Taakey:
-- AI Rate: 12.12% - Your Text is Most Likely Human written
-- Words: 1549
-- Time: xx minutes
-- Tags: Java, Programming, Technology
-- Summary: In this article, we'll explore five new Java 21 features that every developer should know.
-
--->
+---
+title: "[Java] 5 New Java 21 Features Every Developer Should Know"
+date: 2025-09-03
+last_modified_at: 2025-09-03
+author: Jeff Taakey
+AI Rate: 12.12% - Your Text is Most Likely Human written
+Words: 1549
+description: "Explore the five most impactful Java 21 features that every developer should understand, including virtual threads, pattern matching for switch, record patterns, string templates, and sequenced collections."
+keywords: ["Java", "Java 21", "virtual threads", "pattern matching", "record patterns", "string templates", "sequenced collections"]
+categories:
+  - Java
+  - Programming
+tags:
+  - java21
+  - concurrency
+  - patterns
+  - modern-java
+image: 
+status: published
+featured: true
+canonical_url: 
+---
 
 # [Java] 5 New Java 21 Features Every Developer Should Know
 
@@ -132,7 +143,7 @@ public boolean isInUSA(Person person) {
 
 <!-- **[流程图：记录模式解构过程，展示如何从嵌套结构中提取数据]** -->
 
-```mermaid
+``mermaid
 flowchart TD
     A[Input Object: Shape] --> B{Is it a Rectangle?}
     B -- Yes --> C[Deconstruct Rectangle: x,y,width,height]
@@ -179,7 +190,7 @@ The new SequencedCollection interface fills a gap in Java's collections hierarch
 
 <!-- **[配图：集合接口层次结构图，突出显示SequencedCollection的位置]** -->
 
-```mermaid
+``mermaid
 flowchart TD
     A[Collection] --> B[List]
     A --> C[Set]
